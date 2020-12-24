@@ -10,6 +10,20 @@ def div(a, b):
     return str(a // b) + 'R' + str(a % b)
 
 
+def improper2mixed(numerator, denominator):
+    """
+    Convert improper fraction to mixed number
+    """
+    return f"{numerator // denominator} {numerator % denominator}/{denominator}"
+
+
+def mixed2improper(proper, numerator, denominator):
+    """
+    Convert mixed number to improper fraction
+    """
+    return f"{proper*denominator + numerator}/{denominator}"
+
+
 choice = input("Please enter the divisor and the dividend (or 'q' to quit):")
 while choice.lower() != 'q':
     numbers = re.search(r"(\d*)\s*(\d*)", choice)
