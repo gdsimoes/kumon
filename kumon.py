@@ -1,32 +1,60 @@
 #!/usr/bin/env python3
 
+import sys
 import re
 
 
-def div(a, b):
+def div(string):
     """
     Divides a by b returning the quotient and the remainder in the Kumon format.
     """
-    return str(a // b) + 'R' + str(a % b)
+
+    numbers = re.search(r"^(\d+)\s+(\d+)$", string)
+    numerator = int(numbers[1])
+    denominator = int(numbers[2])
+
+    return str(numerator // denominator) + 'R' + str(numerator % denominator)
 
 
-def improper2mixed(numerator, denominator):
+def improper2mixed(string):
     """
     Convert improper fraction to mixed number
     """
+
+    numbers = re.search(r"^(\d+)\s+(\d+)$", string)
+    numerator = int(numbers[1])
+    denominator = int(numbers[2])
+
     return f"{numerator // denominator} {numerator % denominator}/{denominator}"
 
 
-def mixed2improper(proper, numerator, denominator):
+def mixed2improper(string):
     """
     Convert mixed number to improper fraction
     """
-    return f"{proper*denominator + numerator}/{denominator}"
+
+    numbers = re.search(r"^(\d+)\s+(\d+)\s+(\d+)$", string)
+    whole = int(numbers[1])
+    numerator = int(numbers[2])
+    denominator = int(numbers[3])
+
+    return f"{whole*denominator + numerator}/{denominator}"
 
 
-choice = input("Please enter the divisor and the dividend (or 'q' to quit):")
+if sys.argv[1] == 'd':
+    message = "Please enter the divisor and the dividend (or 'q' to quit):"
+    function = div
+elif sys.argv[1] == 'i':
+    message = "Please enter the numerator and the denominator (or 'q' to quit):"
+    function = improper2mixed
+elif sys.argv[1] == 'm':
+    message = "Please enter the whole number, numerator and the denominator (or 'q' to quit):"
+    function = mixed2improper
+else:
+    print("ERROR!")
+    sys.exit()
+
+choice = input(message)
 while choice.lower() != 'q':
-    numbers = re.search(r"(\d*)\s*(\d*)", choice)
-    print(div(int(numbers[1]), int(numbers[2])))
-    choice = input(
-        "Please enter the divisor and the dividend (or 'q' to quit):")
+    print(function(choice))
+    choice = input(message)
