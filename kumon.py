@@ -41,20 +41,28 @@ def mixed2improper(string):
     return f"{whole*denominator + numerator}/{denominator}"
 
 
-if sys.argv[1] == 'd':
-    message = "Please enter the divisor and the dividend (or 'q' to quit):"
-    function = div
-elif sys.argv[1] == 'i':
-    message = "Please enter the numerator and the denominator (or 'q' to quit):"
-    function = improper2mixed
-elif sys.argv[1] == 'm':
-    message = "Please enter the whole number, numerator and the denominator (or 'q' to quit):"
-    function = mixed2improper
-else:
-    print("ERROR!")
-    sys.exit()
+def main():
+    """
+    Main function
+    """
+    if sys.argv[1] == 'd':
+        message = "Please enter the divisor and the dividend (or 'q' to quit):"
+        function = div
+    elif sys.argv[1] == 'i':
+        message = "Please enter the numerator and the denominator (or 'q' to quit):"
+        function = improper2mixed
+    elif sys.argv[1] == 'm':
+        message = "Please enter the whole number, numerator and the denominator (or 'q' to quit):"
+        function = mixed2improper
+    else:
+        print("ERROR!")
+        sys.exit()
 
-choice = input(message)
-while choice.lower() != 'q':
-    print(function(choice))
     choice = input(message)
+    while choice.lower() != 'q':
+        print(function(choice))
+        choice = input(message)
+
+
+if __name__ == "__main__":
+    main()
